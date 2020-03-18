@@ -2,7 +2,22 @@
 ### Do not make changes to this file directly
 
 
+type BatchPayload {
+  count: Int!
+}
+
 scalar DateTime
+
+input DateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: DateTime
+  notIn: [DateTime!]
+}
 
 type Employee {
   createdAt: DateTime!
@@ -13,8 +28,178 @@ type Employee {
   updatedAt: DateTime!
 }
 
+input EmployeeCreateInput {
+  createdAt: DateTime
+  email: String!
+  emd_id: String
+  name: String
+  settings: SettingsCreateOneWithoutEmployeesInput
+  updatedAt: DateTime
+}
+
+input EmployeeCreateManyWithoutSettingsInput {
+  connect: [EmployeeWhereUniqueInput!]
+  create: [EmployeeCreateWithoutSettingsInput!]
+}
+
+input EmployeeCreateWithoutSettingsInput {
+  createdAt: DateTime
+  email: String!
+  emd_id: String
+  name: String
+  updatedAt: DateTime
+}
+
+input EmployeeFilter {
+  every: EmployeeWhereInput
+  none: EmployeeWhereInput
+  some: EmployeeWhereInput
+}
+
+input EmployeeOrderByInput {
+  createdAt: OrderByArg
+  email: OrderByArg
+  emd_id: OrderByArg
+  name: OrderByArg
+  settings: OrderByArg
+  updatedAt: OrderByArg
+}
+
+input EmployeeScalarWhereInput {
+  AND: [EmployeeScalarWhereInput!]
+  createdAt: DateTimeFilter
+  email: StringFilter
+  emd_id: StringFilter
+  name: NullableStringFilter
+  NOT: [EmployeeScalarWhereInput!]
+  OR: [EmployeeScalarWhereInput!]
+  updatedAt: DateTimeFilter
+}
+
+input EmployeeUpdateInput {
+  createdAt: DateTime
+  email: String
+  emd_id: String
+  name: String
+  settings: SettingsUpdateOneWithoutEmployeesInput
+  updatedAt: DateTime
+}
+
+input EmployeeUpdateManyDataInput {
+  createdAt: DateTime
+  email: String
+  emd_id: String
+  name: String
+  updatedAt: DateTime
+}
+
+input EmployeeUpdateManyMutationInput {
+  createdAt: DateTime
+  email: String
+  emd_id: String
+  name: String
+  updatedAt: DateTime
+}
+
+input EmployeeUpdateManyWithoutSettingsInput {
+  connect: [EmployeeWhereUniqueInput!]
+  create: [EmployeeCreateWithoutSettingsInput!]
+  delete: [EmployeeWhereUniqueInput!]
+  deleteMany: [EmployeeScalarWhereInput!]
+  disconnect: [EmployeeWhereUniqueInput!]
+  set: [EmployeeWhereUniqueInput!]
+  update: [EmployeeUpdateWithWhereUniqueWithoutSettingsInput!]
+  updateMany: [EmployeeUpdateManyWithWhereNestedInput!]
+  upsert: [EmployeeUpsertWithWhereUniqueWithoutSettingsInput!]
+}
+
+input EmployeeUpdateManyWithWhereNestedInput {
+  data: EmployeeUpdateManyDataInput!
+  where: EmployeeScalarWhereInput!
+}
+
+input EmployeeUpdateWithoutSettingsDataInput {
+  createdAt: DateTime
+  email: String
+  emd_id: String
+  name: String
+  updatedAt: DateTime
+}
+
+input EmployeeUpdateWithWhereUniqueWithoutSettingsInput {
+  data: EmployeeUpdateWithoutSettingsDataInput!
+  where: EmployeeWhereUniqueInput!
+}
+
+input EmployeeUpsertWithWhereUniqueWithoutSettingsInput {
+  create: EmployeeCreateWithoutSettingsInput!
+  update: EmployeeUpdateWithoutSettingsDataInput!
+  where: EmployeeWhereUniqueInput!
+}
+
+input EmployeeWhereInput {
+  AND: [EmployeeWhereInput!]
+  createdAt: DateTimeFilter
+  email: StringFilter
+  emd_id: StringFilter
+  name: NullableStringFilter
+  NOT: [EmployeeWhereInput!]
+  OR: [EmployeeWhereInput!]
+  settings: SettingsWhereInput
+  updatedAt: DateTimeFilter
+}
+
+input EmployeeWhereUniqueInput {
+  email: String
+  emd_id: String
+}
+
+type Mutation {
+  createOneEmployee(data: EmployeeCreateInput!): Employee!
+  createOneSettings(data: SettingsCreateInput!): Settings!
+  createOneUser(data: UserCreateInput!): User!
+  deleteManyEmployee(where: EmployeeWhereInput): BatchPayload!
+  deleteManySettings(where: SettingsWhereInput): BatchPayload!
+  deleteManyUser(where: UserWhereInput): BatchPayload!
+  deleteOneEmployee(where: EmployeeWhereUniqueInput!): Employee
+  deleteOneSettings(where: SettingsWhereUniqueInput!): Settings
+  deleteOneUser(where: UserWhereUniqueInput!): User
+  updateManyEmployee(data: EmployeeUpdateManyMutationInput!, where: EmployeeWhereInput): BatchPayload!
+  updateManySettings(data: SettingsUpdateManyMutationInput!, where: SettingsWhereInput): BatchPayload!
+  updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  updateOneEmployee(data: EmployeeUpdateInput!, where: EmployeeWhereUniqueInput!): Employee
+  updateOneSettings(data: SettingsUpdateInput!, where: SettingsWhereUniqueInput!): Settings
+  updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  upsertOneEmployee(create: EmployeeCreateInput!, update: EmployeeUpdateInput!, where: EmployeeWhereUniqueInput!): Employee!
+  upsertOneSettings(create: SettingsCreateInput!, update: SettingsUpdateInput!, where: SettingsWhereUniqueInput!): Settings!
+  upsertOneUser(create: UserCreateInput!, update: UserUpdateInput!, where: UserWhereUniqueInput!): User!
+}
+
+input NullableStringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: String
+  notIn: [String!]
+  startsWith: String
+}
+
+enum OrderByArg {
+  asc
+  desc
+}
+
 type Query {
-  ok: Boolean!
+  employee(where: EmployeeWhereUniqueInput!): Employee
+  employees(after: EmployeeWhereUniqueInput, before: EmployeeWhereUniqueInput, first: Int, last: Int, orderBy: EmployeeOrderByInput, skip: Int, where: EmployeeWhereInput): [Employee!]!
+  settings(after: SettingsWhereUniqueInput, before: SettingsWhereUniqueInput, first: Int, last: Int, orderBy: SettingsOrderByInput, skip: Int, where: SettingsWhereInput): [Settings!]!
+  user(where: UserWhereUniqueInput!): User
+  users(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int, orderBy: UserOrderByInput, skip: Int, where: UserWhereInput): [User!]!
 }
 
 type Settings {
@@ -24,11 +209,279 @@ type Settings {
   photoUrl: String
 }
 
+input SettingsCreateInput {
+  age: String
+  employees: EmployeeCreateManyWithoutSettingsInput
+  gender: String!
+  id: String
+  photoUrl: String
+  users: UserCreateManyWithoutSettingsInput
+}
+
+input SettingsCreateOneWithoutEmployeesInput {
+  connect: SettingsWhereUniqueInput
+  create: SettingsCreateWithoutEmployeesInput
+}
+
+input SettingsCreateOneWithoutUsersInput {
+  connect: SettingsWhereUniqueInput
+  create: SettingsCreateWithoutUsersInput
+}
+
+input SettingsCreateWithoutEmployeesInput {
+  age: String
+  gender: String!
+  id: String
+  photoUrl: String
+  users: UserCreateManyWithoutSettingsInput
+}
+
+input SettingsCreateWithoutUsersInput {
+  age: String
+  employees: EmployeeCreateManyWithoutSettingsInput
+  gender: String!
+  id: String
+  photoUrl: String
+}
+
+input SettingsOrderByInput {
+  age: OrderByArg
+  gender: OrderByArg
+  id: OrderByArg
+  photoUrl: OrderByArg
+}
+
+input SettingsUpdateInput {
+  age: String
+  employees: EmployeeUpdateManyWithoutSettingsInput
+  gender: String
+  id: String
+  photoUrl: String
+  users: UserUpdateManyWithoutSettingsInput
+}
+
+input SettingsUpdateManyMutationInput {
+  age: String
+  gender: String
+  id: String
+  photoUrl: String
+}
+
+input SettingsUpdateOneWithoutEmployeesInput {
+  connect: SettingsWhereUniqueInput
+  create: SettingsCreateWithoutEmployeesInput
+  delete: Boolean
+  disconnect: Boolean
+  update: SettingsUpdateWithoutEmployeesDataInput
+  upsert: SettingsUpsertWithoutEmployeesInput
+}
+
+input SettingsUpdateOneWithoutUsersInput {
+  connect: SettingsWhereUniqueInput
+  create: SettingsCreateWithoutUsersInput
+  delete: Boolean
+  disconnect: Boolean
+  update: SettingsUpdateWithoutUsersDataInput
+  upsert: SettingsUpsertWithoutUsersInput
+}
+
+input SettingsUpdateWithoutEmployeesDataInput {
+  age: String
+  gender: String
+  id: String
+  photoUrl: String
+  users: UserUpdateManyWithoutSettingsInput
+}
+
+input SettingsUpdateWithoutUsersDataInput {
+  age: String
+  employees: EmployeeUpdateManyWithoutSettingsInput
+  gender: String
+  id: String
+  photoUrl: String
+}
+
+input SettingsUpsertWithoutEmployeesInput {
+  create: SettingsCreateWithoutEmployeesInput!
+  update: SettingsUpdateWithoutEmployeesDataInput!
+}
+
+input SettingsUpsertWithoutUsersInput {
+  create: SettingsCreateWithoutUsersInput!
+  update: SettingsUpdateWithoutUsersDataInput!
+}
+
+input SettingsWhereInput {
+  age: NullableStringFilter
+  AND: [SettingsWhereInput!]
+  employees: EmployeeFilter
+  gender: StringFilter
+  id: StringFilter
+  NOT: [SettingsWhereInput!]
+  OR: [SettingsWhereInput!]
+  photoUrl: NullableStringFilter
+  users: UserFilter
+}
+
+input SettingsWhereUniqueInput {
+  id: String
+}
+
+input StringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: String
+  notIn: [String!]
+  startsWith: String
+}
+
 type User {
   createdAt: DateTime!
   email: String!
   name: String
   settings: Settings
+  status: String
   updatedAt: DateTime!
   user_id: String!
+}
+
+input UserCreateInput {
+  createdAt: DateTime
+  email: String!
+  name: String
+  settings: SettingsCreateOneWithoutUsersInput
+  status: String
+  updatedAt: DateTime
+  user_id: String
+}
+
+input UserCreateManyWithoutSettingsInput {
+  connect: [UserWhereUniqueInput!]
+  create: [UserCreateWithoutSettingsInput!]
+}
+
+input UserCreateWithoutSettingsInput {
+  createdAt: DateTime
+  email: String!
+  name: String
+  status: String
+  updatedAt: DateTime
+  user_id: String
+}
+
+input UserFilter {
+  every: UserWhereInput
+  none: UserWhereInput
+  some: UserWhereInput
+}
+
+input UserOrderByInput {
+  createdAt: OrderByArg
+  email: OrderByArg
+  name: OrderByArg
+  settings: OrderByArg
+  status: OrderByArg
+  updatedAt: OrderByArg
+  user_id: OrderByArg
+}
+
+input UserScalarWhereInput {
+  AND: [UserScalarWhereInput!]
+  createdAt: DateTimeFilter
+  email: StringFilter
+  name: NullableStringFilter
+  NOT: [UserScalarWhereInput!]
+  OR: [UserScalarWhereInput!]
+  status: NullableStringFilter
+  updatedAt: DateTimeFilter
+  user_id: StringFilter
+}
+
+input UserUpdateInput {
+  createdAt: DateTime
+  email: String
+  name: String
+  settings: SettingsUpdateOneWithoutUsersInput
+  status: String
+  updatedAt: DateTime
+  user_id: String
+}
+
+input UserUpdateManyDataInput {
+  createdAt: DateTime
+  email: String
+  name: String
+  status: String
+  updatedAt: DateTime
+  user_id: String
+}
+
+input UserUpdateManyMutationInput {
+  createdAt: DateTime
+  email: String
+  name: String
+  status: String
+  updatedAt: DateTime
+  user_id: String
+}
+
+input UserUpdateManyWithoutSettingsInput {
+  connect: [UserWhereUniqueInput!]
+  create: [UserCreateWithoutSettingsInput!]
+  delete: [UserWhereUniqueInput!]
+  deleteMany: [UserScalarWhereInput!]
+  disconnect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutSettingsInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutSettingsInput!]
+}
+
+input UserUpdateManyWithWhereNestedInput {
+  data: UserUpdateManyDataInput!
+  where: UserScalarWhereInput!
+}
+
+input UserUpdateWithoutSettingsDataInput {
+  createdAt: DateTime
+  email: String
+  name: String
+  status: String
+  updatedAt: DateTime
+  user_id: String
+}
+
+input UserUpdateWithWhereUniqueWithoutSettingsInput {
+  data: UserUpdateWithoutSettingsDataInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutSettingsInput {
+  create: UserCreateWithoutSettingsInput!
+  update: UserUpdateWithoutSettingsDataInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserWhereInput {
+  AND: [UserWhereInput!]
+  createdAt: DateTimeFilter
+  email: StringFilter
+  name: NullableStringFilter
+  NOT: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  settings: SettingsWhereInput
+  status: NullableStringFilter
+  updatedAt: DateTimeFilter
+  user_id: StringFilter
+}
+
+input UserWhereUniqueInput {
+  email: String
+  user_id: String
 }

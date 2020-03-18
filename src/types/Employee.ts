@@ -1,4 +1,4 @@
-import { objectType } from 'nexus'	
+import { objectType, extendType } from 'nexus'	
 
 export const Employee = objectType({
   name: 'Employee',
@@ -9,5 +9,26 @@ export const Employee = objectType({
     t.model.settings()
     t.model.createdAt()
     t.model.updatedAt()
+  },
+})
+
+export const employeeQuery = extendType({
+  type: 'Query',
+  definition(t) {
+    t.crud.employee()
+    t.crud.employees({ filtering: true, ordering: true })
+  },
+})
+
+export const employeeMutation = extendType({
+  type: 'Mutation',
+  definition(t) {
+    t.crud.createOneEmployee()
+    t.crud.updateOneEmployee()
+    t.crud.upsertOneEmployee()
+    t.crud.deleteOneEmployee()
+
+    t.crud.updateManyEmployee()
+    t.crud.deleteManyEmployee()
   },
 })

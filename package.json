@@ -11,6 +11,9 @@
     "generate:prisma": "prisma2 generate",
     "generate:nexus": "ts-node --transpile-only src/schema",
     "postinstall": "npm -s run generate",
+    "createtypes": "npx cnt --mq -f -o",
+    "migrate": "prisma2 migrate save --experimental && prisma2 migrate up --experimental",
+    "ondeploy":"npm run createtypes && npm run generate && npm run dev",
     "dev": "ts-node-dev --no-notify --respawn --transpileOnly src/server"
   },
   "author": "ganesh deshmukh",
