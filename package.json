@@ -4,7 +4,8 @@
   "description": "prisma2-graphql-yoga-typescript-nexus",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/server",
+    "start": "npm run ondeploy",
+    "start_old": "node dist/server",
     "clean": "rm -rf dist",
     "build": "npm -s run clean && npm -s run generate && tsc",
     "generate": "npm -s run generate:prisma && npm -s run generate:nexus",
@@ -13,8 +14,10 @@
     "postinstall": "npm -s run generate",
     "createtypes": "npx cnt --mq -f -o",
     "migrate": "prisma2 migrate save --experimental && prisma2 migrate up --experimental",
-    "ondeploy":"npm run createtypes && npm run generate && npm run dev",
-    "dev": "ts-node-dev --no-notify --respawn --transpileOnly src/server"
+    "deploy": "git push heroku master",
+    "ondeploy":"npm run createtypes && npm run generate && npm run begin",
+    "dev": "ts-node-dev --no-notify --respawn --transpileOnly src/server",
+    "begin": "ts-node --transpile-only src/server"
   },
   "author": "ganesh deshmukh",
   "license": "ISC",
